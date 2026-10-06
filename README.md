@@ -38,7 +38,7 @@ cd android && ./gradlew assembleDebug
 
 ## Publication web
 
-Le workflow **« Publier le jeu web »** construit `dist/` et le déploie avec GitHub Pages. Il est déclenché sur `main` et `arena/**`. Il tente d’activer Pages automatiquement ; si les réglages du dépôt l’empêchent, choisissez **Settings → Pages → Build and deployment → GitHub Actions**. Le jeu est livré comme site statique et n’a besoin d’aucun serveur de jeu.
+Le workflow **« Publier le jeu web »** construit `dist/` sur `main` et `arena/**` et en conserve aussi une copie dans **Artifacts**. Si GitHub Pages est activé, il déploie le site automatiquement ; sinon, activez **Settings → Pages → Build and deployment → GitHub Actions**. Le jeu est livré comme site statique et n’a besoin d’aucun serveur de jeu.
 
 ## Technologies
 
