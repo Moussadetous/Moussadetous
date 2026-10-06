@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no" />
+    <meta name="theme-color" content="#b9d7b9" />
+    <meta name="color-scheme" content="light" />
+    <meta name="description" content="Un voyage contemplatif en 3D dans l’arbre-monde. Glissez, grimpez, découvrez : l’aventure de Miette commence sous une feuille." />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href="./icon.svg" />
+    <title>Miette — l’arbre des murmures</title>
+  </head>
+  <body>
+    <main id="game" aria-label="Jeu d’exploration de Miette">
+      <canvas id="world" aria-label="Monde 3D de l’arbre des murmures"></canvas>
+
+      <div class="world-vignette" aria-hidden="true"></div>
+      <div class="sun-wash" aria-hidden="true"></div>
+
+      <header class="topbar">
+        <div class="identity">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 36 36" fill="none">
+              <path d="M18 29V15m0 4c-4.5-5.9-9-6.3-12-5.7 1.7 5.1 5.6 8.4 12 8.2m0-4c4.5-5.9 9-6.3 12-5.7-1.7 5.1-5.6 8.4-12 8.2M18 14c-3.3-4.4-2.5-8.4 0-10.2 2.5 1.8 3.3 5.8 0 10.2Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M13.5 30.5h9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="identity-copy">
+            <span class="eyebrow">UNE AVENTURE TOUTE PETITE</span>
+            <span class="game-name">Miette <i>et</i> l’arbre-monde</span>
+          </div>
+        </div>
+
+        <div class="top-actions">
+          <div class="dawn-pill"><span class="dawn-sun" aria-hidden="true"></span><span>AUBE DORÉE</span></div>
+          <button class="icon-button map-button" id="mapButton" type="button" aria-label="Ouvrir le carnet d’exploration" title="Carnet d’exploration">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m3.5 6.2 5.6-2.5 5.8 2.5 5.6-2.5v14.1l-5.6 2.5-5.8-2.5-5.6 2.5V6.2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M9.1 3.8v14m5.8-11.6v14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="14.9" cy="10.6" r="1.2" fill="currentColor"/></svg>
+          </button>
+          <button class="icon-button pause-button" id="pauseButton" type="button" aria-label="Mettre le jeu en pause" title="Pause">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8.3 5.5v13m7.4-13v13" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <section class="location-card" aria-live="polite">
+        <div class="location-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 20s7-4.1 7-10.2A7 7 0 1 0 5 9.8C5 15.9 12 20 12 20Z" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="9" r="2.1" stroke="currentColor" stroke-width="1.5"/></svg>
+        </div>
+        <div>
+          <span class="eyebrow location-kicker" id="zoneKicker">AU CŒUR DU VIEIL ARBRE</span>
+          <h1 id="zoneName">Le tronc-cœur</h1>
+          <p id="zoneSubtitle">La forêt s’éveille sous tes pattes.</p>
+        </div>
+      </section>
+
+      <div class="discovery-pill" id="discoveryPill" aria-live="polite">
+        <span class="discovery-spark" aria-hidden="true">✦</span>
+        <span class="discovery-count"><b id="sparkCount">0</b><i> / 3</i></span>
+        <span class="discovery-label">lueurs à réveiller</span>
+      </div>
+
+      <div class="whisper" id="whisper" role="status" aria-live="polite">
+        <span class="whisper-glyph" aria-hidden="true">✧</span>
+        <p id="whisperText">Une minuscule fourmi. Un arbre sans fin.</p>
+      </div>
+
+      <div class="bottom-ui">
+        <div class="guide-chip" id="guideChip">
+          <span class="guide-dot" aria-hidden="true"></span>
+          <span><b>À toi de jouer</b><i>Glisse vers le bas pour avancer</i></span>
+          <button class="guide-close" id="dismissGuide" type="button" aria-label="Masquer le conseil">×</button>
+        </div>
+
+        <div class="controls-row">
+          <div class="joystick-wrap">
+            <div class="joystick" id="joystick" role="application" aria-label="Commandes tactiles : glisser vers le bas pour avancer, à gauche ou à droite pour tourner" tabindex="0">
+              <div class="stick-glow" aria-hidden="true"></div>
+              <div class="stick-ring" aria-hidden="true"></div>
+              <div class="stick-center" aria-hidden="true"></div>
+              <div class="stick-knob" id="stickKnob" aria-hidden="true">
+                <svg viewBox="0 0 26 26" fill="none"><path d="M13 5.5v15m0-15 5.2 5.2M13 5.5 7.8 10.7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+            <span class="control-caption">GUIDER MIETTE</span>
+          </div>
+
+          <div class="bottom-message" aria-live="polite">
+            <span class="message-rule"></span>
+            <span id="journeyMessage">Le monde est à toi.</span>
+            <span class="message-sub">Prends ton temps, regarde partout.</span>
+          </div>
+
+          <button class="observe-button" id="observeButton" type="button" aria-label="Observer les alentours">
+            <span class="observe-icon" aria-hidden="true">
+              <svg viewBox="0 0 28 28" fill="none"><path d="M3.5 14s3.8-6.4 10.5-6.4S24.5 14 24.5 14 20.7 20.4 14 20.4 3.5 14 3.5 14Z" stroke="currentColor" stroke-width="1.55" stroke-linejoin="round"/><circle cx="14" cy="14" r="3.1" stroke="currentColor" stroke-width="1.55"/><path d="M19.8 4.2v3.2m-1.6-1.6h3.2M6 20l-1.2 1.2" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/></svg>
+            </span>
+            <span class="observe-caption">OBSERVER</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+      <section class="modal-shell" id="journalModal" aria-hidden="true" aria-labelledby="journalTitle">
+        <div class="modal-backdrop" data-close="journal"></div>
+        <article class="journal-card">
+          <button class="modal-close" type="button" data-close="journal" aria-label="Fermer le carnet">×</button>
+          <div class="journal-stamp" aria-hidden="true">✧</div>
+          <span class="eyebrow">LES PETITS SECRETS DE MIETTE</span>
+          <h2 id="journalTitle">Carnet d’exploration</h2>
+          <p class="journal-intro">L’arbre est un monde. Chaque détour raconte quelque chose.</p>
+          <div class="journal-progress">
+            <div class="progress-copy"><span>Lueurs d’étoile</span><b id="journalProgress">0 sur 3</b></div>
+            <div class="progress-track"><span id="journalProgressBar"></span></div>
+          </div>
+          <div class="tree-map" aria-label="Carte schématique des chemins de l’arbre">
+            <div class="tree-map-heading"><span>LES CHEMINS CONNUS</span><i id="mapCurrentName">Le tronc-cœur</i></div>
+            <svg viewBox="0 0 320 112" role="img" aria-hidden="true">
+              <path class="map-trail" d="M159 100C159 86 160 79 160 65C160 53 153 46 138 36M160 66C171 55 183 48 197 38M160 78C145 72 130 73 115 82M160 76C178 72 198 76 216 88M160 63C161 49 162 37 165 20"/>
+              <path class="map-root" d="M160 79C153 88 143 96 134 102M160 80C168 88 178 95 188 101"/>
+              <circle class="map-node map-node-heart is-seen is-current" data-map-zone="heart" cx="160" cy="65" r="5"/>
+              <circle class="map-node" data-map-zone="leaves" cx="138" cy="36" r="5"/>
+              <circle class="map-node" data-map-zone="lanterns" cx="197" cy="38" r="5"/>
+              <circle class="map-node" data-map-zone="roots" cx="134" cy="102" r="5"/>
+              <path class="map-star" d="m164 14 1.5 4 4 .2-3.1 2.5 1.1 3.9-3.5-2.2-3.4 2.2 1-3.9-3-2.5 4-.2 1.4-4Z"/>
+            </svg>
+            <div class="map-legend"><span><i class="legend-dot"></i>ta balade</span><span><i class="legend-line"></i>chemin à découvrir</span></div>
+          </div>
+          <div class="journal-zones" id="journalZones">
+            <div class="journal-zone is-seen is-current" data-zone="heart"><span class="zone-check">✓</span><span><b>Le tronc-cœur</b><i>Tout commence ici.</i></span><span class="zone-arrow">↗</span></div>
+            <div class="journal-zone" data-zone="leaves"><span class="zone-check">·</span><span><b>La mer de feuilles</b><i>Un océan suspendu.</i></span><span class="zone-arrow">↗</span></div>
+            <div class="journal-zone" data-zone="roots"><span class="zone-check">·</span><span><b>Les racines rêveuses</b><i>Les secrets d’en bas.</i></span><span class="zone-arrow">↗</span></div>
+            <div class="journal-zone" data-zone="lanterns"><span class="zone-check">·</span><span><b>Le jardin des lanternes</b><i>La nuit n’est jamais loin.</i></span><span class="zone-arrow">↗</span></div>
+          </div>
+          <div class="journal-note"><span aria-hidden="true">❧</span><span>Pas de course, pas de bataille. Juste toi, Miette, et le grand dehors.</span></div>
+        </article>
+      </section>
+
+      <section class="modal-shell" id="pauseModal" aria-hidden="true" aria-labelledby="pauseTitle">
+        <div class="modal-backdrop" data-close="pause"></div>
+        <article class="pause-card">
+          <div class="pause-leaf" aria-hidden="true">❧</div>
+          <span class="eyebrow">LE VENT PEUT BIEN ATTENDRE</span>
+          <h2 id="pauseTitle">Petite pause ?</h2>
+          <p>Miette garde ta place sur la branche.</p>
+          <button class="primary-button" id="resumeButton" type="button">Reprendre la balade <span aria-hidden="true">→</span></button>
+        </article>
+      </section>
+
+      <div class="mobile-landscape-note" aria-hidden="true"><span>↻</span><p>Tu peux tourner ton téléphone pour voir plus loin dans les branches.</p></div>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
