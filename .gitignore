@@ -1,0 +1,16 @@
+# Dependencies and local builds
+node_modules/
+dist/
+android/
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.iml
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*

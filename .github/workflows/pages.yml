@@ -1,0 +1,87 @@
+name: Publier le jeu web
+
+on:
+  push:
+    branches:
+      - main
+      - 'arena/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Construire le site
+    runs-on: ubuntu-latest
+    outputs:
+      pages_enabled: ${{ steps.pages_site.outputs.enabled }}
+    steps:
+      - name: Récupérer le projet
+        uses: actions/checkout@v7
+
+      - name: Installer Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Vérifier si GitHub Pages est déjà activé
+        id: pages_site
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          status=$(curl -sS -o /dev/null -w '%{http_code}' \
+            -H 'Accept: application/vnd.github+json' \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H 'X-GitHub-Api-Version: 2022-11-28' \
+            "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/pages")
+          if [ "$status" = '200' ]; then
+            echo 'enabled=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'enabled=false' >> "$GITHUB_OUTPUT"
+            echo '::notice title=GitHub Pages non activé::Le site sera construit en artefact. Activez Pages dans Settings → Pages (source : GitHub Actions) pour publier l’URL.'
+          fi
+
+      - name: Lire la configuration GitHub Pages
+        if: steps.pages_site.outputs.enabled == 'true'
+        uses: actions/configure-pages@v6
+
+      - name: Installer les dépendances
+        run: npm ci
+
+      - name: Construire le site statique
+        run: npm run build
+
+      - name: Préparer l’artefact du site
+        uses: actions/upload-artifact@v7
+        with:
+          name: miette-arbre-des-murmures-site
+          path: dist
+          retention-days: 30
+
+      - name: Préparer l’artefact GitHub Pages
+        if: steps.pages_site.outputs.enabled == 'true'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+  deploy:
+    name: Publier sur GitHub Pages
+    if: needs.build.outputs.pages_enabled == 'true'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Déployer le jeu
+        id: deployment
+        uses: actions/deploy-pages@v5

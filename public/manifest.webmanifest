@@ -1,0 +1,20 @@
+{
+  "name": "Miette — l’arbre des murmures",
+  "short_name": "Miette",
+  "description": "Une aventure contemplative à hauteur de fourmi.",
+  "lang": "fr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#b9d7b9",
+  "theme_color": "#b9d7b9",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

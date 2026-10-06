@@ -1,0 +1,11 @@
+{
+  "appId": "com.moussadetous.arbredesmurmures",
+  "appName": "Miette — l’arbre des murmures",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "backgroundColor": "#b9d7b9",
+  "android": {
+    "allowMixedContent": false,
+    "captureInput": true
+  }
+}
