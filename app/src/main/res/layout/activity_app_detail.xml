@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/mousse_background"
+    tools:context=".AppDetailActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/mousse_primary"
+        android:elevation="@dimen/toolbar_elevation"
+        app:title="@string/detail_title"
+        app:titleTextColor="@color/white"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:navigationIconTint="@color/white" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/default_padding">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/default_margin"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:cardElevation="@dimen/card_elevation">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/default_padding">
+
+                    <ImageView
+                        android:id="@+id/appIcon"
+                        android:layout_width="@dimen/app_icon_size"
+                        android:layout_height="@dimen/app_icon_size"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_web_app"
+                        android:contentDescription="App Icon"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/default_margin" />
+
+                    <TextView
+                        android:id="@+id/appName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="App Name"
+                        android:textSize="@dimen/text_size_large"
+                        android:textColor="@color/mousse_text_primary"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:layout_marginBottom="@dimen/small_margin" />
+
+                    <TextView
+                        android:id="@+id/appPackageName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="@dimen/text_size_small"
+                        android:textColor="@color/mousse_text_secondary"
+                        android:gravity="center"
+                        android:layout_marginBottom="@dimen/default_margin" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/default_margin"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:cardElevation="@dimen/card_elevation">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/default_padding">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_description"
+                        android:textSize="@dimen/text_size_medium"
+                        android:textColor="@color/mousse_text_primary"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="@dimen/small_margin" />
+
+                    <TextView
+                        android:id="@+id/appDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="@dimen/text_size_normal"
+                        android:textColor="@color/mousse_text_secondary" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/default_margin"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:cardElevation="@dimen/card_elevation">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/default_padding">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_version"
+                        android:textSize="@dimen/text_size_medium"
+                        android:textColor="@color/mousse_text_primary"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="@dimen/small_margin" />
+
+                    <TextView
+                        android:id="@+id/appVersion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="1.0"
+                        android:textSize="@dimen/text_size_normal"
+                        android:textColor="@color/mousse_text_secondary"
+                        android:layout_marginBottom="@dimen/default_margin" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/mousse_divider"
+                        android:layout_marginVertical="@dimen/small_margin" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_size"
+                        android:textSize="@dimen/text_size_medium"
+                        android:textColor="@color/mousse_text_primary"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="@dimen/small_margin" />
+
+                    <TextView
+                        android:id="@+id/appSize"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0 B"
+                        android:textSize="@dimen/text_size_normal"
+                        android:textColor="@color/mousse_text_secondary"
+                        android:layout_marginBottom="@dimen/default_margin" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/mousse_divider"
+                        android:layout_marginVertical="@dimen/small_margin" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_path"
+                        android:textSize="@dimen/text_size_medium"
+                        android:textColor="@color/mousse_text_primary"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="@dimen/small_margin" />
+
+                    <TextView
+                        android:id="@+id/appPath"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="@dimen/text_size_small"
+                        android:textColor="@color/mousse_text_secondary"
+                        android:maxLines="2"
+                        android:ellipsize="end" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <Button
+                android:id="@+id/btnLaunch"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:text="@string/detail_launch"
+                android:textAllCaps="false"
+                android:layout_marginTop="@dimen/default_margin"
+                style="@style/MousseOS.Button" />
+
+            <Button
+                android:id="@+id/btnUninstall"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:text="@string/detail_uninstall"
+                android:textAllCaps="false"
+                android:layout_marginTop="@dimen/small_margin"
+                style="@style/MousseOS.Button.Outlined" />
+
+            <Button
+                android:id="@+id/btnOpenFolder"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:text="@string/detail_open_folder"
+                android:textAllCaps="false"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginBottom="@dimen/default_margin"
+                style="@style/MousseOS.Button.Outlined" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

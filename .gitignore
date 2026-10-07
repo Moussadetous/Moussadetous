@@ -1,0 +1,91 @@
+# Android Studio
+*.iml
+.idea/
+
+# Gradle
+build/
+gradle/
+.gradle/
+
+# Local properties
+local.properties
+gradle.properties
+
+# Android build outputs
+app/build/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment files
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Temporary files
+temp/
+tmp/
+*.tmp
+*.temp
+
+# Cache
+.cache/
+*.cache
+
+# APK files
+*.apk
+
+# Keystores
+*.jks
+*.keystore
+
+# Signing files
+*.pem
+*.key
+
+# Test results
+*/test-results/
+
+# Coverage reports
+*/coverage/
+
+# IDE specific files
+*.swp
+*.swo
+*~
+
+# macOS
+.AppleDouble
+LSOverride
+
+# Windows
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.nfs*
+
+# Node (if used for web components)
+node_modules/
+npm-debug.log
+
+# Yarn (if used)
+.yarn/
+yarn-error.log
+
+# Fastlane (if used)
+fastlane/
+
+# Firebase (if used)
+firebase.json
+.google-services.json
+
+# Crashlytics (if used)
+crashlytics.properties
